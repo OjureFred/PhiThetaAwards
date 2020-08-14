@@ -31,6 +31,9 @@ class Submission(models.Model):
     tags = models.ManyToManyField(tags)
     submission_date = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.title
+
 class Votes(models.Model):
     design = models.IntegerField()
     usability = models.IntegerField()
@@ -39,3 +42,6 @@ class Votes(models.Model):
     mobile = models.IntegerField()
     submission = models.ForeignKey(Submission, on_delete= models.DO_NOTHING)
     developer = models.ForeignKey(Developer, on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+        return self.submission.title
