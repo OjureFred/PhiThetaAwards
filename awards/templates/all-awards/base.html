@@ -1,4 +1,5 @@
-{% load bootsrap3 %}
+{% load bootstrap3 %}
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,9 +11,15 @@
     <title> PhiBeta Internet Design Awards </title>
   {% endif %}
 
+  {% block styles %}
+    {% bootstrap_css %}
+    <link rel="stylesheet" href="{% static 'css/baseawards.css' %}">
+{% endblock %}
+
 </head>
 <body>
-    {% block content %} <h1 class="text-center">Awards for for {{date|date:"l d-F Y"}}</h1> {%endblock%}
+    {% include "navbar.html" %}
+    {% block content %} <h1 class="text-center">Awards for  {{date|date:"l d-F Y"}}</h1> {%endblock%}
 
     {% block scripts %}
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
