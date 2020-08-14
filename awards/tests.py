@@ -36,9 +36,20 @@ class SubmissionTestClass(TestCase):
 
         self.new_submission.tags.add(self.new_tag)
     
+    def test_get_today_submission(self):
+        today_submission = Submission.todays_submission()
+        self.assertTrue(len(today_submission) > 0)
+    
+    def test_get_submission_by_date(self):
+        test_date = '2016-05-21'
+        date = dt.datetime.strptime(test_date, '%Y-%m-%d').date()
+        submission_by_date = Submission.days_submission(date)
+        self.assertTrue(len(submission_by_date) == 0)
+    
     def tearDown(self):
         Developer.objects.all().delete()
         tags.objects.all().delete()
+        Submission.objects.all.delete()
 
 
 

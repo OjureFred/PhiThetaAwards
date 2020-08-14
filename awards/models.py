@@ -1,4 +1,5 @@
 from django.db import models
+import datetime as dt
 
 # Create your models here.
 class Developer(models.Model):
@@ -33,6 +34,17 @@ class Submission(models.Model):
 
     def __str__(self):
         return self.title
+    
+    @classmethod
+    def today_submission(cls):
+        today = dt.date.today()
+        submissions = cls.objects.filter(submission_date=today)
+        return submissions
+    
+    @classmethod
+    def days_submission(cls, date):
+        submissions = cls.objects.filter(submission_date=date)
+        return submissions
 
 class Votes(models.Model):
     design = models.IntegerField()
