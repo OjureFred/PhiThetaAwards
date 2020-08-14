@@ -6,6 +6,6 @@ class SubmissionAdmin(admin.ModelAdmin):
     filter_horizontal = ('tags',)
     
 admin.site.register(Developer)
-admin.site.register(Submission)
+admin.site.register(Submission, SubmissionAdmin)
 admin.site.register(Votes)
 admin.site.register(tags)
