@@ -27,3 +27,18 @@ def past_days_submission(request, past_date):
     submissions = Submission.days_submission(date)
     context = {"date": date, "submissions": submissions}
     return render(request, 'all-awards/past-submissions.html', context)
+
+def search_results(request):
+
+    if 'submission' in request.GET and request.GET["submission"]:
+        search_term = request.GET.get("submission")
+        searched_submissions = Submission.search_by_title(search_term)
+        message = f'{search_term}'
+
+        context = {"message": message, "submissions": searched_submissions}
+        return render(request, 'all-awards/search.html', context)
+
+    else:
+        message = "You haven't searched for any term"
+        context = {"message": message}
+        return render(request, 'all-awards/search.html', context)
