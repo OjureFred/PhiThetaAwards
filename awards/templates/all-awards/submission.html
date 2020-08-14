@@ -1,0 +1,25 @@
+{%extends 'all-awards/base.html'%}
+
+ {% block content %}
+
+ <div class="container">
+
+   <div class="row">
+     <img src="{{submission.submission_image.url}}"  class="img-responsive" alt="">
+   </div>
+
+   <div class="row">
+     <h1 class="text-center">{{submission.title}}</h1>
+   </div>
+
+   <div class="row">
+     <p>{{submission.description}}</p>
+   </div>
+
+   <div class="row">
+     <p>Posted {{subscription.pub_date|timesince}} by {{submission.developer.first_name}}</p>
+   </div>
+
+ </div>
+
+ {% endblock %}

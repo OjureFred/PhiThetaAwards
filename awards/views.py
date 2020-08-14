@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 import datetime as dt
 
+from .models import Developer, Submission, tags, Votes
+
 # Create your views here.
 def welcome(request):
     return render(request, 'welcome.html')
@@ -42,3 +44,12 @@ def search_results(request):
         message = "You haven't searched for any term"
         context = {"message": message}
         return render(request, 'all-awards/search.html', context)
+
+def submission(request, submission_id):
+    try:
+        submission = Submission.objects.get(id=submission_id)
+    except DoesNotExist:
+        raise Http404
+
+    context = {"submission": submission}
+    return render(request, "all-awards/award.html", context)
