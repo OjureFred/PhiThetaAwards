@@ -31,6 +31,7 @@ class Submission(models.Model):
     date_judged = models.DateTimeField()
     tags = models.ManyToManyField(tags)
     submission_date = models.DateTimeField(auto_now_add=True)
+    submission_image = models.ImageField(upload_to, 'submissions/')
 
     def __str__(self):
         return self.title
