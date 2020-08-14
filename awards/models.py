@@ -12,4 +12,15 @@ class Developer(models.Model):
     class Meta:
         ordering = ['first_name']
 
-class tags
+class tags(models.Model):
+    name = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.name
+
+class Submission(models.Model):
+    title = models.CharField(max_length=60)
+    description = models.TextField()
+    developer = models.ForeignKey(Developer)
+    tags = models.ManyToManyField(tags)
+    submission_date = models.DateTimeField(auto_now_add=True)
