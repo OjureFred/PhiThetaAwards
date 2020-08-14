@@ -9,6 +9,9 @@ class Developer(models.Model):
     def __str__(self):
         return self.first_name
     
+    def save_developer(self):
+        self.save()
+    
     class Meta:
         ordering = ['first_name']
 
