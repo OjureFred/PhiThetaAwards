@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  {% if title %}
+  <title>PhiBeta Design Awards - {{title}}</title>
+  {% else %}
+    <title> PhiBeta Internet Design Awards </title>
+  {% endif %}
+
+</head>
+<body>
+    {% block content %} <h1>Awards for for {{date|date:"l d-F Y"}}</h1> {%endblock%}
+</body>
+</html>
