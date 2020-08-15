@@ -1,22 +1,8 @@
 from django.db import models
+from django.contrib.auth.models import User
 import datetime as dt
 
 # Create your models here.
-class Developer(models.Model):
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
-    email = models.EmailField()
-    phone_number = models.CharField(max_length=10, blank=True)
-
-    def __str__(self):
-        return self.first_name + ' ' + self.last_name
-    
-    def save_developer(self):
-        self.save()
-    
-    class Meta:
-        ordering = ['first_name']
-
 class tags(models.Model):
     name = models.CharField(max_length=30)
 
@@ -26,7 +12,7 @@ class tags(models.Model):
 class Submission(models.Model):
     title = models.CharField(max_length=60)
     description = models.TextField()
-    developer = models.ForeignKey(Developer, on_delete=models.DO_NOTHING)
+    developer = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     url_link = models.CharField(max_length=40)
     date_judged = models.DateTimeField()
     tags = models.ManyToManyField(tags)
@@ -54,7 +40,7 @@ class Votes(models.Model):
     content = models.IntegerField()
     mobile = models.IntegerField()
     submission = models.ForeignKey(Submission, on_delete= models.DO_NOTHING)
-    developer = models.ForeignKey(Developer, on_delete=models.DO_NOTHING)
+    developer = models.ForeignKey(User, on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return self.submission.title
