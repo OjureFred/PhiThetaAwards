@@ -6,7 +6,9 @@ from .models import Developer, Submission, tags, Votes
 
 # Create your views here.
 def welcome(request):
-    return render(request, 'welcome.html')
+    submissions = Submission.objects.all()
+    context = {"submissions": submissions}
+    return render(request, 'welcome.html', context)
 
 def submissions_today(request):
     date = dt.date.today()
