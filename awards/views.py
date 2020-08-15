@@ -4,6 +4,7 @@ import datetime as dt
 
 from .models import Developer, Submission, tags, Votes
 from .forms import AwardsForm
+from .email import send_welcome_email
 
 # Create your views here.
 def welcome(request):
@@ -16,6 +17,8 @@ def welcome(request):
             email = form.cleaned_data['email']
             recipient = AwardNewsRecipient(name=name, email=email)
             recipient.save()
+            send_welcome_email(name, email)
+            
             HttpResponseRedirect('welcome')
         
     else:
