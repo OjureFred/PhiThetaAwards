@@ -3,11 +3,21 @@ from django.http import HttpResponse
 import datetime as dt
 
 from .models import Developer, Submission, tags, Votes
+from .forms import AwardsForm
 
 # Create your views here.
 def welcome(request):
     submissions = Submission.objects.all()
-    context = {"submissions": submissions}
+    
+    if request.method == 'POST':
+        form = AwardsForm(request.POST)
+        if form.is_valid():
+            print('valid')
+        
+    else:
+        form = AwardsForm()
+
+    context = {"submissions": submissions, "awardsform": form}
     return render(request, 'welcome.html', context)
 
 def submissions_today(request):
