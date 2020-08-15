@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 import datetime as dt
 
 from .models import Submission, tags, Votes
-from .forms import AwardsForm
+from .forms import AwardsForm, NewSubmissionForm
 from .email import send_welcome_email
 
 # Create your views here.
@@ -73,3 +73,20 @@ def submission(request, submission_id):
 
     context = {"submission": submission}
     return render(request, "all-awards/award.html", context)
+
+@login_required
+def new_submission(request):
+    current_user = request.current_user
+    if request.method == 'post':
+        form = NewSubmissionForm(request.POST, request.FILES)
+        if form.is_valid():
+            submission = form.save(commit=False)
+            submission.developer = current_user
+            submission.save()
+        return redirect('welcome')
+
+    else:
+        form = NewSubmissionForm()
+    
+    context = {"form": form}
+    return render(request, 'new_submission.html', context)

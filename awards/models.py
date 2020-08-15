@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from tinymce.models import HTMLField
 import datetime as dt
 
 # Create your models here.
@@ -11,7 +12,7 @@ class tags(models.Model):
 
 class Submission(models.Model):
     title = models.CharField(max_length=60)
-    description = models.TextField()
+    description = HTMLField()
     developer = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     url_link = models.CharField(max_length=40)
     date_judged = models.DateTimeField()
