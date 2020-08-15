@@ -3,7 +3,7 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 import datetime as dt
 
-from .models import Developer, Submission, tags, Votes
+from .models import Submission, tags, Votes
 from .forms import AwardsForm
 from .email import send_welcome_email
 
