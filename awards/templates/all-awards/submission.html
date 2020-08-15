@@ -9,13 +9,12 @@
    </div>
 
    <div class="row">
-     <h1 class="text-center">{{submission.title}}</h1>
+     {% autoescape on %}
+     {{submision.description | safe}}
+     {% endautoescape %}
    </div>
 
-   <div class="row">
-     <p>{{submission.description}}</p>
-   </div>
-
+   
    <div class="row">
      <p>Posted {{subscription.pub_date|timesince}} by {{submission.developer.first_name}}</p>
    </div>
