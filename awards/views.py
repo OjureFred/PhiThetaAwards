@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404, HttpResponseRedirect
 import datetime as dt
 
 from .models import Developer, Submission, tags, Votes
@@ -12,7 +12,11 @@ def welcome(request):
     if request.method == 'POST':
         form = AwardsForm(request.POST)
         if form.is_valid():
-            print('valid')
+            name = form.cleaned_data['your_name']
+            email = form.cleaned_data['email']
+            recipient = AwardNewsRecipient(name=name, email=email)
+            recipient.save()
+            HttpResponseRedirect('welcome')
         
     else:
         form = AwardsForm()

@@ -58,3 +58,7 @@ class Votes(models.Model):
 
     def __str__(self):
         return self.submission.title
+
+class AwardNewsRecipients(models.Model):
+    name = models.CharField(max_length=30)
+    email = models.EmailField()
