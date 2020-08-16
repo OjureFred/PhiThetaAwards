@@ -49,3 +49,9 @@ class Votes(models.Model):
 class AwardNewsRecipients(models.Model):
     name = models.CharField(max_length=30)
     email = models.EmailField()
+
+class AwardsMerch(models.Model):
+    title = models.CharField(max_length=30)
+    description = models.TextField()
+    developer = models.CharField(max_length=40)
+    url_link = models.CharField(max_length=40)
