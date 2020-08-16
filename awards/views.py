@@ -1,9 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from rest_framework.response import Response
+from rest_framework.views import APIView
 import datetime as dt
 
-from .models import Submission, tags, Votes
+from .models import Submission, tags, Votes, AwardsAPI
+from .serializer import AwardSerializer
 from .forms import AwardsForm, NewSubmissionForm
 from .email import send_welcome_email
 
@@ -90,3 +93,9 @@ def new_submission(request):
     
     context = {"form": form}
     return render(request, 'new_submission.html', context)
+
+class AwardList(APIView):
+    def get(self, request, format=None):
+        all_awards = AwardsAPI.objects.all()
+        serializers = AwardSerializer(all_awards, many=True)
+        return Response(serializers.data)
