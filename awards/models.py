@@ -13,7 +13,7 @@ class tags(models.Model):
 class Submission(models.Model):
     title = models.CharField(max_length=60)
     description = HTMLField()
-    developer = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    developer = models.ForeignKey(User, blank=True, null=True)
     url_link = models.CharField(max_length=40)
     date_judged = models.DateTimeField()
     tags = models.ManyToManyField(tags)
@@ -41,7 +41,7 @@ class Votes(models.Model):
     content = models.IntegerField()
     mobile = models.IntegerField()
     submission = models.ForeignKey(Submission, on_delete= models.DO_NOTHING)
-    developer = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    developer = models.ForeignKey(User, blank=True, null=True)
 
     def __str__(self):
         return self.submission.title
