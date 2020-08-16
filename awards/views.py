@@ -9,6 +9,7 @@ from .models import Submission, tags, Votes, AwardsAPI
 from .serializer import AwardSerializer
 from .forms import AwardsForm, NewSubmissionForm
 from .email import send_welcome_email
+from .permissions import IsAdminOrReadOnly
 
 # Create your views here.
 def welcome(request):
@@ -95,6 +96,7 @@ def new_submission(request):
     return render(request, 'new_submission.html', context)
 
 class AwardList(APIView):
+    permission_classes = (IsAdminOrReadOnly, )
     def get(self, request, format=None):
         all_awards = AwardsAPI.objects.all()
         serializers = AwardSerializer(all_awards, many=True)
