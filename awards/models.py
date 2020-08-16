@@ -50,7 +50,7 @@ class AwardNewsRecipients(models.Model):
     name = models.CharField(max_length=30)
     email = models.EmailField()
 
-class AwardsMerch(models.Model):
+class AwardsAPI(models.Model):
     title = models.CharField(max_length=30)
     description = models.TextField()
     developer = models.CharField(max_length=40)
