@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'rest_framework',
+    'rest_framework.authtoken',
     'awards',
     'bootstrap3',
     'tinymce',
@@ -86,6 +87,13 @@ DATABASES = {
         'USER': 'pythonuser',
         'PASSWORD': 'pythonuser',
     }
+}
+
+#REST Framework authentication
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    )
 }
 
 
