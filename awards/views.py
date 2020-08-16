@@ -6,7 +6,7 @@ from rest_framework.views import APIView
 import datetime as dt
 
 from .models import Submission, tags, Votes, AwardsAPI
-from .serializer import AwardSerializer
+from .serializers import AwardSerializer
 from .forms import AwardsForm, NewSubmissionForm
 from .email import send_welcome_email
 from .permissions import IsAdminOrReadOnly
@@ -96,7 +96,8 @@ def new_submission(request):
     return render(request, 'new_submission.html', context)
 
 class AwardList(APIView):
-    permission_classes = (IsAdminOrReadOnly, )
+    permission_classes = (IsAdminOrReadOnly,)
+    
     def get(self, request, format=None):
         all_awards = AwardsAPI.objects.all()
         serializers = AwardSerializer(all_awards, many=True)
@@ -108,3 +109,31 @@ class AwardList(APIView):
             serializers.save()
             return Response(serializers.data, status=status.HTTP_201_CREATED)
         return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class AwardDescription(APIView):
+    permission_classes = (IsAdminOrReadOnly,)
+    
+    def get_award(self, pk):
+        try:
+            return AwardsAPI.objects.get(pk=pk)
+        except AwardsAPI.DoesNotExist:
+            return Http404
+    
+    def get(self, request, pk, format=None):
+        award = self.get_award(pk)
+        serializers = AwardSerializer(award)
+        return Response(serializers.data)
+    
+    def put(self, request, pk, format=None):
+        award = self.get_award(pk)
+        serializers = AwardSerializer(award, request.data)
+        if serializer.is_valid():
+            serializers.save()
+            return Response(serializers.data)
+        else:
+            return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def delete(self, request, pk, format=None):
+        award = self.get_award(pk)
+        award.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

@@ -3,4 +3,4 @@ from .models import AwardsAPI
 class AwardSerializer(serializers.ModelSerializer):
     class Meta:
         model = AwardsAPI
-        fields = ('title', 'description', 'developer', 'url_link')
+        fields = ('id','title', 'description', 'developer', 'url_link')
