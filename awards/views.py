@@ -12,6 +12,7 @@ from .email import send_welcome_email
 from .permissions import IsAdminOrReadOnly
 
 # Create your views here.
+@login_required(login_url = '/accounts/login')
 def welcome(request):
     submissions = Submission.objects.all()
     
@@ -78,9 +79,9 @@ def submission(request, submission_id):
     context = {"submission": submission}
     return render(request, "all-awards/award.html", context)
 
-@login_required
+@login_required(login_url = '/accounts/login')
 def new_submission(request):
-    current_user = request.current_user
+    current_user = request.user
     if request.method == 'post':
         form = NewSubmissionForm(request.POST, request.FILES)
         if form.is_valid():

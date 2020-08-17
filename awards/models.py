@@ -15,7 +15,6 @@ class Submission(models.Model):
     description = HTMLField()
     developer = models.ForeignKey(User, blank=True, null=True)
     url_link = models.CharField(max_length=40)
-    date_judged = models.DateTimeField()
     tags = models.ManyToManyField(tags)
     submission_date = models.DateTimeField(auto_now_add=True)
     submission_image = models.ImageField(upload_to='submissions/')
@@ -37,9 +36,7 @@ class Submission(models.Model):
 class Votes(models.Model):
     design = models.IntegerField()
     usability = models.IntegerField()
-    creativity = models.IntegerField()
     content = models.IntegerField()
-    mobile = models.IntegerField()
     submission = models.ForeignKey(Submission, on_delete= models.DO_NOTHING)
     developer = models.ForeignKey(User, blank=True, null=True)
 
