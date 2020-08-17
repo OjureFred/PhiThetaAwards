@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from rest_framework.response import Response
@@ -12,8 +12,9 @@ from .email import send_welcome_email
 from .permissions import IsAdminOrReadOnly
 
 # Create your views here.
-@login_required(login_url = '/accounts/login')
+
 def welcome(request):
+   
     submissions = Submission.objects.all()
     
     if request.method == 'POST':
@@ -82,7 +83,7 @@ def submission(request, submission_id):
 @login_required(login_url = '/accounts/login')
 def new_submission(request):
     current_user = request.user
-    if request.method == 'post':
+    if request.method == 'POST':
         form = NewSubmissionForm(request.POST, request.FILES)
         if form.is_valid():
             submission = form.save(commit=False)
