@@ -20,8 +20,8 @@
         <p>Categories: {{submission.tags}}</p>
         <p>Submission Date:{{submission.submission_date}}</p>
         {% if user.is_authenticated %}
-        <button class="btn btn-primary" href="{%url 'submission' pk=submission.id %}">View</button>
-        <button class="btn btn-primary">Vote</button>
+        <a class="btn btn-primary" href="submission/{{submission.id}}">View</a>
+        <a class="btn btn-primary" href="vote/{{submission.id}}">Vote</button>
         {% endif %}
       </div>
     </div>

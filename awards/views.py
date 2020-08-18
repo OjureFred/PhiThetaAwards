@@ -7,7 +7,7 @@ import datetime as dt
 
 from .models import Submission, tags, Votes, AwardsAPI
 from .serializers import AwardSerializer
-from .forms import AwardsForm, NewSubmissionForm
+from .forms import AwardsForm, NewSubmissionForm, NewVoteForm
 from .email import send_welcome_email
 from .permissions import IsAdminOrReadOnly
 
@@ -74,6 +74,7 @@ def search_results(request):
 def submission(request, submission_id):
     try:
         submission = Submission.objects.get(id=submission_id)
+        print(submission)
     except DoesNotExist:
         raise Http404
 
@@ -96,6 +97,24 @@ def new_submission(request):
     
     context = {"form": form}
     return render(request, 'new_submission.html', context)
+
+def new_vote(request, submission_id):
+    current_user = request.user
+    current_submission = Submission.objects.get(id = submission_id)
+    if request.method == 'POST':
+        form = NewVoteForm(request.POST)
+        if form.is_valid():
+            vote = form.save(commit=False)
+            submission = current_submission
+            developer = current_user
+            vote.save()
+        return redirect('welcome')
+
+    else:
+        form = NewVoteForm()
+    
+    context = {"form": form, "id": submission_id}
+    return render(request, 'new_vote.html', context)
 
 class AwardList(APIView):
     permission_classes = (IsAdminOrReadOnly,)

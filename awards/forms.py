@@ -1,5 +1,5 @@
 from django import forms
-from .models import Submission
+from .models import Submission, Votes
 
 class AwardsForm(forms.Form):
     your_name = forms.CharField(label="Your Name", max_length=30)
@@ -12,3 +12,9 @@ class NewSubmissionForm(forms.ModelForm):
         widget = {
             'tags': forms.CheckboxSelectMultiple(),
         }
+
+class NewVoteForm(forms.ModelForm):
+
+    class Meta:
+        model = Votes
+        exclude = ['developer', 'submission']
