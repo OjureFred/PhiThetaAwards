@@ -18,3 +18,8 @@ class NewVoteForm(forms.ModelForm):
     class Meta:
         model = Votes
         exclude = ['developer', 'submission']
+        widget = {
+            'design': forms.IntegerField(label='Enter a value between 1 - 10', min_value=0, max_value=10),
+            'usability': forms.IntegerField(min_value=0, max_value=10),
+            'content': forms.IntegerField(min_value=0, max_value=10),
+        }

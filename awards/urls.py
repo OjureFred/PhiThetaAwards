@@ -11,7 +11,7 @@ urlpatterns = [
     url(r'^search/', views.search_results, name='search_results'),
     #path('submission/<int:pk>', views.submission, name="submission"),
     url(r'^new/submission$', views.new_submission, name='new-submission'),
-    url(r'^vote/(\d+)', views.new_vote, name='new_vote'),
+    url(r'^vote/(\d+)', views.new_vote, name='new-vote'),
     url(r'^api/awards/$', views.AwardList.as_view()),
 ]
 if settings.DEBUG:

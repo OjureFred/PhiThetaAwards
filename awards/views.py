@@ -102,7 +102,7 @@ def new_vote(request, submission_id):
     current_user = request.user
     current_submission = Submission.objects.get(id = submission_id)
     if request.method == 'POST':
-        form = NewVoteForm(request.POST)
+        form = NewVoteForm(request.POST, request.FILES)
         if form.is_valid():
             vote = form.save(commit=False)
             submission = current_submission
