@@ -1,6 +1,6 @@
-# SocialGram Social Site
+# PhiBeta Site
 
-This is a Python Django Project that tries to copy Instagram App
+This is a Python Django Project that allows a user to submit a project and also grade submitted projects.
 
 ## Getting Started
 
