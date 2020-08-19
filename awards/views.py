@@ -18,8 +18,8 @@ def welcome(request):
 
     # Generate random value between 1 and 5 to get showcase submission
     svalue = randint(1, 3)
-    print(svalue)
-    showcase = Submission.objects.get(id = 6)
+    
+    showcase = Submission.objects.get(svalue)
    
     submissions = Submission.objects.all()
     
@@ -107,13 +107,16 @@ def new_submission(request):
 @login_required(login_url= '/accounts/login')
 def new_vote(request, submission_id):
     current_user = request.user
-    current_submission = Submission.objects.get(id = submission_id)
+    current_submission = Submission.objects.get(id=submission_id)
+   
+    
     if request.method == 'POST':
-        form = NewVoteForm(request.POST, request.FILES)
+        form = NewVoteForm(request.POST)
         if form.is_valid():
             vote = form.save(commit=False)
             submission = current_submission
             developer = current_user
+            print(vote)
             vote.save()
         return redirect('welcome')
 
