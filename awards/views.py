@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from rest_framework.response import Response
 from rest_framework.views import APIView
 import datetime as dt
+from random import randint
 
 from .models import Submission, tags, Votes, AwardsAPI
 from .serializers import AwardSerializer
@@ -14,6 +15,11 @@ from .permissions import IsAdminOrReadOnly
 # Create your views here.
 
 def welcome(request):
+
+    # Generate random value between 1 and 5 to get showcase submission
+    svalue = randint(1, 3)
+    print(svalue)
+    showcase = Submission.objects.get(id = 6)
    
     submissions = Submission.objects.all()
     
@@ -31,7 +37,7 @@ def welcome(request):
     else:
         form = AwardsForm()
 
-    context = {"submissions": submissions, "awardsform": form}
+    context = {"submissions": submissions, "awardsform": form, "showcase": showcase }
     return render(request, 'welcome.html', context)
 
 def submissions_today(request):
@@ -98,6 +104,7 @@ def new_submission(request):
     context = {"form": form}
     return render(request, 'new_submission.html', context)
 
+@login_required(login_url= '/accounts/login')
 def new_vote(request, submission_id):
     current_user = request.user
     current_submission = Submission.objects.get(id = submission_id)
