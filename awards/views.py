@@ -19,7 +19,7 @@ def welcome(request):
     # Generate random value between 1 and 5 to get showcase submission
     svalue = randint(1, 3)
     
-    showcase = Submission.objects.get(svalue)
+    showcase = Submission.objects.get(id= svalue)
    
     submissions = Submission.objects.all()
     
