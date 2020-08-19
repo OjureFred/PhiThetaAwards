@@ -1,4 +1,4 @@
-# PhiBeta Site
+# PhiBeta Internet Project Awards Site
 
 This is a Python Django Project that allows a user to submit a project and also grade submitted projects.
 
